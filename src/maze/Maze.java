@@ -46,7 +46,7 @@ public class Maze {
 	System.out.println("What is the file name?");
 	String fileName = iDev.nextLine();
 	File file = new File("./" +fileName+ ".txt"); */ 
-	File file = new File("./" +"newMaze"+ ".txt");  
+	File file = new File("./" +"maze"+ ".txt");  
 	Scanner scanner = new Scanner(file);
 	width=scanner.nextInt();
 	height=scanner.nextInt();
@@ -82,8 +82,10 @@ public class Maze {
 	frame.setTitle("Maze");
 	DrawMaze draw = new DrawMaze();
 	frame.add(draw);
+	frame.setResizable(false);
 	frame.pack();
 	frame.setVisible(true);
+	
 	frame.setAlwaysOnTop(true);
 	BufferedImage bi = new BufferedImage((width)*50, (height)*50,BufferedImage.TYPE_INT_RGB);
 	g2d = bi.createGraphics();
@@ -97,8 +99,8 @@ public class Maze {
 	other.createNewFile();
 	Random rand = new Random();
 	FileWriter wr = new FileWriter(other);
-	int newWidth = 9;
-	int newHeight = 9;
+	int newWidth = rand.nextInt(25)+1;
+	int newHeight = rand.nextInt(13)+1;
 	wr.write(newWidth+" "+newHeight+"\n");
 	for(int i=0;i<newHeight;i++){
 	    for(int j = 0;j<newWidth;j++){
@@ -173,15 +175,11 @@ public class Maze {
 	}
         return false;
     }
-
     public static void main(String[] args) throws FileNotFoundException, IOException {
-	
         Maze m = new Maze();
 	m.newMaze();
 	m.fillMazeFromFile();
-        //m.fillMazeFromFile();
         m.display();
         m.escape();
-
     }
 }
